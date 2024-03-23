@@ -231,6 +231,6 @@ contract NewContract {
 contract NewContract {
     uint32[] private array;
     mapping(uint32 => address) mapp;
-    string[] keys;
+    uint32[] keys;
     ...
 ```
