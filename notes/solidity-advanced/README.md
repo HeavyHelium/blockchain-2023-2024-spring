@@ -268,6 +268,27 @@ contract EthReceiver {
 
 ```
 
+#### `namedcall`
+
+- cascades exceptions
+
+* revert - ва при неуспех
+
+```solidity
+
+    function namedCall(address payable _to) public pure returns(uint8) {
+        EthReceiver receiver = EthReceiver(_to);
+        // през обекта ще ползваме функции от този smart contract, на този обект
+        // автоматично си смята газта
+
+        //uint256 balance = receiver.getBalance();
+        ///receiver.increment();
+        return receiver.exampleOverflow();
+    }
+
+
+```
+
 ### Структури
 
 ```solidity
@@ -301,3 +322,7 @@ contract someContract {
 ```solidity
 abi.decode(data, (uint256)) // ако данните са в hex и са цели числа и ги искаме в decimal
 ```
+
+- обикновено от всички методи ползваме `call` най-много, понеже можем да специфицираме точното количество газ
+
+* `send` и `transfer` работят само с native криптото за дадения протокол, в случая ether.
