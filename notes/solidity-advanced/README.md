@@ -315,7 +315,7 @@ contract someContract {
 
 - DAO hack - базира се на цикъл от call-ове м/у `fallback` функции на два smart contract-а, **reentrancy condition**.
 
-- пазене на баланса в property - не е добра практика due to reentrancy vulnerabilties
+- пазене на баланса в property - добра практика, избягване на неискано получаване на пари
 
 - `gasleft()` - можем да вземем количеството останала газ, но най-коректно е да проверяваме количеството газ на тестова мрежа
 
