@@ -17,7 +17,8 @@ contract Casino {
     address[] participants;
     address[] currentWinners;
 
-    event sentToWinner(address _addr, uint256 _amount);
+    event sentToWinner(address _addr, uint256 _amount, uint256 _number);
+    event revealAdmin(address _admin, uint256 _amount, uint256 _magic_number);
 
     modifier isAdmin() {
         require(
@@ -65,7 +66,7 @@ contract Casino {
             currentWinners.push(participants[i]);
         }
 
-        payWinners();
+        payWinners(magicNumber);
         reset();
     }
 
@@ -100,7 +101,7 @@ contract Casino {
         }
     }
 
-    function payWinners() private {
+    function payWinners(uint16 magic_number) private {
         require(currentWinners.length != 0, "No winners selected. Cannot pay!");
 
         // избираме transfer за по-просто, тъй като rever-ва
@@ -123,12 +124,16 @@ contract Casino {
                 (bets[currentWinners[i]].amount / totalWinnersBets) *
                 winPot;
             payable((currentWinners[i])).transfer(amount);
-            emit sentToWinner((currentWinners[i]), amount);
+            emit sentToWinner(
+                (currentWinners[i]),
+                amount,
+                bets[currentWinners[i]].num
+            );
         }
 
         amount = address(this).balance;
         payable(admin).transfer(address(this).balance);
-        emit sentToWinner(admin, amount);
+        emit revealAdmin(admin, amount, magic_number);
     }
 
     function reset() private {
