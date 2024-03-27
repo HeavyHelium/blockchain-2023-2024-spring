@@ -9,13 +9,15 @@ contract Casino {
     }
 
     address admin;
-    uint256 casinoBalance = 0; // добра практика, за избягвне на неискано получаване
+    uint256 casinoBalance = 0; // добра практика, за избягвaне на неискано получаване
     uint8 casinoLimit = 50;
-    uint8 minimumBets = 3;
+    uint8 minimumBets = 10;
     mapping(address => User) bets;
 
     address[] participants;
     address[] currentWinners;
+
+    event sentToWinner(address _addr, uint256 _amount);
 
     modifier isAdmin() {
         require(
@@ -85,6 +87,7 @@ contract Casino {
                 uint16 deltai = magicNumber > bets[participants[i]].num
                     ? magicNumber - bets[participants[i]].num
                     : bets[participants[i]].num - magicNumber;
+
                 uint16 deltaj = magicNumber > bets[participants[j]].num
                     ? magicNumber - bets[participants[j]].num
                     : bets[participants[j]].num - magicNumber;
@@ -112,15 +115,20 @@ contract Casino {
         totalWinnersBets = casinoBalance - winPot;
         winPot = (winPot * 9) / 10;
 
+        uint256 amount = 0;
+
         for (uint256 i = 0; i < currentWinners.length; ++i) {
-            payable((currentWinners[i])).transfer(
+            amount =
                 bets[currentWinners[i]].amount +
-                    (bets[currentWinners[i]].amount / totalWinnersBets) *
-                    winPot
-            );
+                (bets[currentWinners[i]].amount / totalWinnersBets) *
+                winPot;
+            payable((currentWinners[i])).transfer(amount);
+            emit sentToWinner((currentWinners[i]), amount);
         }
 
+        amount = address(this).balance;
         payable(admin).transfer(address(this).balance);
+        emit sentToWinner(admin, amount);
     }
 
     function reset() private {
@@ -131,6 +139,11 @@ contract Casino {
         while (participants.length != 0) {
             participants.pop();
         }
+
+        // по-дорбре с delete
+        // delete currentWinners;
+        // delete participants;
+
         casinoBalance = 0;
     }
 
