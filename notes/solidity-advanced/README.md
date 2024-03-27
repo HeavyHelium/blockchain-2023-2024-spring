@@ -62,7 +62,7 @@ pragma solidity >=0.7.0 <0.9.0;
 contract contractThree {
     // events се пазят в структура около ledger-а
     event MoneyReceived(string _function, uint256 _amount, address _sender);
-    uint256 contrBalance = 0; // лоша практика
+    uint256 contrBalance = 0;
 
     fallback() external payable {
         emit MoneyReceived("fallback", msg.value, msg.sender);
