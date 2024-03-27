@@ -1,6 +1,6 @@
 ## Solidity Advanced
 
-❗❗❗ Chrome не приема хекс изобщо за вход на транзакции. `03-21-2024`
+❗ chrome има много проблеми с remix
 
 ### `fallback` и `receive`
 
@@ -14,13 +14,13 @@
 
   - съотв. ако не се намери такава, като last-resort се избира `fallback`
 
-* Обикновено, когато се стигне до `fallback`, не се интересуваме от конкретна бизнес логика, а идеята е да се уведоми потребителят, че се е стигнало до `fallback`
+* Обикновено, когато се стигне до `fallback`, не се интересуваме от конкретна бизнес логика
 
 #### `receive`
 
 Tранзацията освен `from` и `to`, носи и метаданни, сред които е и количеството крипто.
 
-- **_metadata, message object, т.е. msg_** - properties от контекста на една транзакция
+- **_metadata, message object, т.е. msg_**, properties от контекста на една транзакция
 
 * метаданните се overwrite-ват при изпълняването на транзакции
 
@@ -45,13 +45,11 @@ msg.gasprice
 
 * Когато `emit`-нем event, съотв. данни се логват в блокчейна.
 
-### Работа с адреси, contract calling
+### address, contract calling
 
-- `address` е 20-байтов идентификатор представен в hex, който уникално идентифицира smart contract
+- с `msg.sender` вземаме адреса на изпращача
 
-* с `msg.sender` вземаме адреса на изпращача
-
-* `address(this)` - вземаме адреса на текущия contract
+- `address(this)` - вземаме адреса на текущия contract
 
 ```solidity
 
@@ -90,7 +88,7 @@ contract contractThree {
 
 ### Транзакции между два контракта, `transfer` и `send`
 
-- `send` е low level функция, връща булева стойност, може да добавим конкретна бизнес логика след приключването на функцията с успех или неуспех.
+- `send` е low level функция, връща булева стойност, може да добавим конкретна логика след приключването на функцията с успех или неуспех.
 
 - `transfer` директно revert-ва при провал
 
@@ -154,10 +152,10 @@ contract Receiver {
 
 #### `call`
 
-- Можем да изпращаме крипто и чрез `call` функцията, но тя позволява и изпълняването на допълнителна логика под формата на функция, която можем да извикаме.
+- Подобна на send, но позволява изпълняването на допълнителна логика под формата на функция, която можем да извикаме.
 - Можем да посочим количеството газ, което искаме да пуснем за изчислението
 - Подобно на `send` е функция от ниско ниво, т.е. връща bool
-- връща и резултатa под формата на байтове от извиканата функция
+- връща и резултатa от извиканата функция под формата на байтове
 - ако не посочим количество газ, `call` взема цялото количество налична газ
 
 * Т.к. виртуалната машина работи с поток от байтове, трябва да encode-нем сигнатурата
@@ -185,12 +183,12 @@ contract Receiver {
 
 #### `delegatecall`
 
-- Подобна е на `call`, но само по това, че се използва логиката на посочена функция, но в контекста на текущия contract.
+- Подобна е на `call`, но само по това, че се използва логиката на посочена функция, но **в контекста на текущия contract**.
 
-* идеята е code reusability, не се използва сама по себе си за транзакции между два контракта
+* идеята е code reusability, ползва се в библиотеки
 
 ```solidity
-    contract SendEther {
+    contract Sender {
     event MoneyReceived(string _function, uint256, address _sender);
     event MoneySent(address _receiver, uint256 _amount);
     event ReturnedData(bool _success, bytes _data);
@@ -218,14 +216,14 @@ contract Receiver {
 
 ##### `tx` обект
 
-- tx носи информация за целия callchain
+- tx носи информация за целия **callchain**
 - tx.origin - адреса на този, който е започнал цялата верига
 
 * tx не бива да се ползва като начин за валидация на потребители
 
 ```solidity
 
-contract EthReceiver {
+contract Receiver {
     uint256 number = 0;
     event Log(uint256 func, uint256 amount, address sender);
     // event GasLeft(uint256 _left);
@@ -277,7 +275,7 @@ contract EthReceiver {
 ```solidity
 
     function namedCall(address payable _to) public pure returns(uint8) {
-        EthReceiver receiver = EthReceiver(_to);
+        Receiver receiver = Receiver(_to);
         // през обекта ще ползваме функции от този smart contract, на този обект
         // автоматично си смята газта
 
@@ -315,7 +313,7 @@ contract someContract {
 
 - DAO hack - базира се на цикъл от call-ове м/у `fallback` функции на два smart contract-а, **reentrancy condition**.
 
-- пазене на баланса в property - не е добра практика due to reentrancy vulnerabilties
+- пазене на баланса в property - добра практика, контрол върху това да не ни пращат неискани пари
 
 - `gasleft()` - можем да вземем количеството останала газ, но най-коректно е да проверяваме количеството газ на тестова мрежа
 
