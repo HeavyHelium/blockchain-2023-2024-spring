@@ -2,7 +2,7 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-contract SendEther {
+contract Send {
     event MoneyReceived(string _function, uint256, address _sender);
     event MoneySent(address _receiver, uint256 _amount);
     event ReturnedData(bool _success, bytes _data);
@@ -82,7 +82,7 @@ contract SendEther {
     }
 }
 
-contract EthReceiver {
+contract Receiver {
     struct Student {
         uint8 age;
         string name;

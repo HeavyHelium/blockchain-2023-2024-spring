@@ -276,7 +276,7 @@ contract Receiver {
 
     function namedCall(address payable _to) public pure returns(uint8) {
         Receiver receiver = Receiver(_to);
-        // през обекта ще ползваме функции от този smart contract, на този обект
+        // през обекта ще ползваме функции от този smart contract, на този адрес
         // автоматично си смята газта
 
         //uint256 balance = receiver.getBalance();
