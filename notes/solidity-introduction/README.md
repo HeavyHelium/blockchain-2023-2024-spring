@@ -225,3 +225,12 @@ contract NewContract {
     uint32[] keys;
     ...
 ```
+
+### Remix Specific
+
+- всяка транзакция е в отделен блок
+- Color coding
+  - червено -- получават се пари, payable
+  - променящи state-а -- оранжево
+  - светлосиньо -- pure
+  - тъмносиньо -- view
