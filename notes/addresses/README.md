@@ -76,8 +76,8 @@ $Address_{contr}(Address_{sender}, Nonce_{sender}) = Bits_{96..255}(keccak256(RL
 
 1. Take (externally owned account) $Address_{sender}$ that deploys the contract
 2. Take that Address's $Nonce_{sender}$
-3. Encode in RLP(recursive length prefix) both fields as an array [$Address_{sender}$, $Nonce_{sender}$]
-4. Hash the serialized resilt with keccak256
+3. Encode in RLP(recursive length prefix) both fields as an array $[Address_{sender}, Nonce_{sender}]$
+4. Hash the serialized result with keccak256
 5. Take tha last 20 bytes of the hash
 6. Put **Ox** prefix for readability
 
