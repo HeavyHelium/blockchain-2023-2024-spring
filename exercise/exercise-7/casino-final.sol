@@ -149,7 +149,7 @@ contract Casino {
     }
 
     function reset() private {
-        for (uint256 i = 0; i < participants.length; i++) {
+        for (uint256 i = 0; i < participants.length; ++i) {
             bets[participants[i]].amount = 0;
         }
 
