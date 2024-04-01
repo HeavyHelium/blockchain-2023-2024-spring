@@ -4,6 +4,14 @@
 
 - Solidity е език за имплементиране на Smart Contracts.
 
+* OOP формат на контракти
+* the native Ethereum(EVM) language
+* Turing complete
+* High-level language
+* constantly being updated/changed
+* compiled to bytecode
+* **bytecode** is executed by the Ethereum Virtual Machine(**EVM**)
+
 ### Въпроси и бележки
 
 - Няма `float`, съответно integer операциите truncate-ват integers
@@ -49,7 +57,9 @@
 
 Ако изпуснем модификатор, се приема by default модификаторът с най-висок приоритет
 
-#### Restrictor functions
+#### Restrictors and function modifiers
+
+##### Restrictors(require statements)
 
 Инструментариум, с който ограничаваме поведението на функцията, за да можем да осигурим по-високо ниво на точност на изпълнението на бизнес логиката
 
@@ -61,7 +71,7 @@ require(<boolean expression>, "string message to display if expression is false"
 
 Обикновено се поставят в началото на функциите с цел потенциално спестяване на газ.
 
-##### Модификатори
+##### Модификатори(restrictor modifiers)
 
 ```solidity
     modifier isHigher5(uint256 _val) {
