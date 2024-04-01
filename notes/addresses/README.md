@@ -124,7 +124,7 @@ $Address_{contr}(Address_{sender}, Nonce_{sender}) = Bits_{96..255}(keccak256(RL
 
 - свързани с интернет
 
-* не е сигурен
+* не е сигурен вариант
 * най-удобни
 
 #### Cold wallets
@@ -132,15 +132,15 @@ $Address_{contr}(Address_{sender}, Nonce_{sender}) = Bits_{96..255}(keccak256(RL
 - начин на съхранение на частния ключ, който не е свързан с интернет
 
 * по-сигурен вариант
-* пазене 3 копия на частния ключ за сигурност
+* пазене на 3 копия на частния ключ за сигурност
 
 ##### Types of wallets according to structure
 
 - При детерминистичините портфейли всички адреси са генерирани от master private key.
 
 * **non-deterministic wallets**
-  - тези портфейли с един частен, един публичен и един адрес
-  - в историята, надградени са
+  - с един частен ключ, един публичен ключ и един адрес
+  - в историята са, надградени са
   - ако човек иска още адреси, трябва да се направи нов wallet, което не е желано
 * **sequential deterministic wallets**(детерминистичен процес, от частния ключ можем да генерираме всички адреси)
 
@@ -148,11 +148,11 @@ $Address_{contr}(Address_{sender}, Nonce_{sender}) = Bits_{96..255}(keccak256(RL
   - hash(private_key + number2) $\to$ public key 2
   - ...
 
-  * metamask e sequential; числа, които се добавят до seed-а, за да се получи нов частен ключ
+  $|\text{public keys set}| = |\mathbb{N}|$
+
+  - metamask e sequential; числа, които се добавят до seed-а, за да се получи нов частен ключ
 
 * **hierarchical deterministic wallets**(BIP32) - използваме частен ключ, който се конвертира до seed
-
-BIP -- Bitcoin improvement proposal
 
 ## Mnemonic
 
@@ -178,5 +178,7 @@ BIP -- Bitcoin improvement proposal
 Използваме дясната част за генериране на публичен ключ, получаваме йерархия от ключове...
 
 confirmation
+
+`Side note` BIP - Bitcoin Improvement Proposal
 
 ❗❗❗ Тестови ethereums
