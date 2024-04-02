@@ -79,7 +79,7 @@ contract Casino {
         );
         uint16 magicNumber = abi.decode(encoded_data, (uint16));
 
-        return magicNumber / 1000;
+        return magicNumber % 1000;
     }
 
     function sort(uint16 magicNumber) private {
@@ -167,7 +167,7 @@ contract Casino {
         require(participants.length < casinoLimit, "Casino is full");
         require(!hasBet(msg.sender), "You already placed a bet!");
         require(_num > 0 && _num < 1000, "Number must be between 0 and 1000");
-        require(msg.value > 100 gwei, "Bet amount must be at least 100 Gwei");
+        require(msg.value > 100 gwei, "Bet amount must be over 100 Gwei");
 
         User memory user = User(msg.value, _num);
         participants.push(msg.sender);
