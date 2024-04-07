@@ -67,6 +67,11 @@ contract Casino {
         require(minimumBets <= participants.length, "Not enough players");
         require(currentWinners.length == 0, "Winners already selected!");
 
+        // беше uint8 winnersCount = (uint8(participants.length) * winnersPercentage) / 100;
+        // the suspect: (uint8(participants.length) * winnersPercentage)
+        // което не беше проблем в случая, в който тествахме; 2 ^ 8 - 1 = 255 макс
+        // 255 > 40 * 3(трима участници и 40% winrate), с 10 участници и 10% winrate пак е fine
+        // Но при >= 10 участници и 40% winrate както тествахме последно ->  40 * 10 > 255
         uint256 winnersCount = (participants.length * winnersPercentage) / 100;
 
         uint16 magicNumber = getMagicNumber();
