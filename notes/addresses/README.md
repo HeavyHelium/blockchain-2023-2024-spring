@@ -78,7 +78,7 @@ $Address_{contr}(Address_{sender}, Nonce_{sender}) = Bits_{96..255}(keccak256(RL
 2. Take that Address's $Nonce_{sender}$
 3. Encode in RLP(recursive length prefix) both fields as an array $[Address_{sender}, Nonce_{sender}]$
 4. Hash the serialized result with keccak256
-5. Take tha last 20 bytes of the hash
+5. Take the last 20 bytes of the hash
 6. Put **Ox** prefix for readability
 
 - на smart контракта не му трябва частен ключ
@@ -148,11 +148,13 @@ $Address_{contr}(Address_{sender}, Nonce_{sender}) = Bits_{96..255}(keccak256(RL
   - hash(private_key + number2) $\to$ public key 2
   - ...
 
+  По-скоро е seed вместо private_key.
+
   $|\text{public keys set}| = |\mathbb{N}|$
 
   - metamask e sequential; числа, които се добавят до seed-а, за да се получи нов частен ключ
 
-* **hierarchical deterministic wallets**(BIP32) - използваме частен ключ, който се конвертира до seed
+* **[hierarchical deterministic wallets](https://alexey-shepelev.medium.com/hierarchical-key-generation-fc27560f786)**(BIP32) - използваме seed, който се конвертира до частен ключ
 
 ## Mnemonic
 
@@ -168,7 +170,7 @@ $Address_{contr}(Address_{sender}, Nonce_{sender}) = Bits_{96..255}(keccak256(RL
 3. Attach the checksum at the end of the entropy(step 1)
 4. Group the resulting data by 11-bit groups
 5. Each word corresponds to a word form a special dictionary
-6. The of words(order is important) is the mnemonic code
+6. The list of words(order is important) is the mnemonic code
 7. Input the mnemonic and a passphrase(or salt - optional) into a key-stretching function
 8. The key-stretching(PBKDF2) function hashes the input 2048 times using HMAC-SHA512 and generates a 512 seed code.
 9. The seed is hashed again. The resulting 512-bit hash is divided into 2 equal 256 parts
