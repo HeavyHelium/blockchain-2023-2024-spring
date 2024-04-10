@@ -144,13 +144,13 @@ $Address_{contr}(Address_{sender}, Nonce_{sender}) = Bits_{96..255}(keccak256(RL
   - ако човек иска още адреси, трябва да се направи нов wallet, което не е желано
 * **sequential deterministic wallets**(детерминистичен процес, от частния ключ можем да генерираме всички адреси)
 
-  - hash(private_key + number1) $\to$ public key 1
-  - hash(private_key + number2) $\to$ public key 2
+  - hash(private_key0 + number1) $\to$ private key 1
+  - hash(private_key0 + number2) $\to$ private key 2
   - ...
 
   По-скоро е seed вместо private_key.
 
-  $|\text{public keys set}| = |\mathbb{N}|$
+  $|\text{private keys set}| = |\mathbb{N}|$
 
   - metamask e sequential; числа, които се добавят до seed-а, за да се получи нов частен ключ
 
