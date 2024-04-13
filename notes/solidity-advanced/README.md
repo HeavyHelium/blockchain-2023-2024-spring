@@ -2,6 +2,10 @@
 
 ❗ chrome има много проблеми с remix
 
+- [Contract ABI Specification](https://docs.soliditylang.org/en/develop/abi-spec.html)
+  - application binary interface
+  - в remix ide заедно с адрес на СК го използваме, за да си взимодействаме със СК, предоставя ни интерфейс
+
 ### `fallback` и `receive`
 
 #### `fallback`
@@ -20,7 +24,7 @@
 
 Tранзацията освен `from` и `to`, носи и метаданни, сред които е и количеството крипто.
 
-- **_metadata, message object, т.е. msg_**, properties от контекста на една транзакция
+- **_metadata, message object, т.е. msg_**, properties от **контекста** на една **транзакция**
 
 * метаданните се overwrite-ват при изпълняването на транзакции
 
