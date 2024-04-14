@@ -4,7 +4,7 @@
 
 - вкарване на крипто в smart contract, независимо че няма `payable` функции
 
-* В момента, в който деполойнем СК на мрежа, понеже всички записи са immutable, не можем да го манипулираме
+* В момента, в който деплойнем СК на мрежа, понеже всички записи са immutable, не можем да го манипулираме
 
 * **_Можем обаче да го блокираме със `selfdestruct` примитива_**
 
@@ -58,7 +58,7 @@ contract B {
 
 ![img](./img/error_dead_contract.png)
 
-- `oracle` е вид СК, който може да изпълни тразакция извън ledger-а
+- `oracle` е вид СК, който може да изпълни транзакция извън ledger-а
   - _Oracles are data feeds that make off-chain data sources available to the blockchain for smart contracts_
 
 ## ABI
@@ -172,7 +172,7 @@ A -> B // само подписване, заявката не напуска le
 
 ### Re-entrancy attack
 
-- СК ни праща праща пари преди да ни отбелязал, че ни ги е пратил
+- СК ни праща пари преди да е отбелязал, че ни ги е пратил
   - циклично(рекурсивно) извикване след получаване и точене
 
 * DAO(Decentralized Autonomous Organization, фонд) hack
@@ -189,10 +189,10 @@ A -> B // само подписване, заявката не напуска le
 
 * transfer over send
 * require over assert and revert
-  - задари особенсти с газта, require връща остатъка налична газ, останалите -- не
+  - заради особености с газта, require връща остатъка налична газ, останалите -- не
   - assert използваме за ситуациите, до които **никога** не трябва да се стига
 * цикли ползваме колкото се може по-рядко
-* withraw pattern over send/push pattern
+* withdraw pattern over send/push pattern
   - всеки сам да си взема това, което му се полага
 * calling internal or verified external SCs оver random SCs
   - предпочитаме нашия си и верифициран код
@@ -218,17 +218,17 @@ A -> B // само подписване, заявката не напуска le
 - always check the balance of a contract
   - forcing crypto in a SC
   - Include automatic checks
-- sensitive information should be encrypted, публичен лedger, обикновено се ползват външни
+- sensitive information should be encrypted, публичен ledger, обикновено се ползват външни бази данни ...
 - keep fallback as simple as possible
 - check for Tx payload length sent to fallbacks
-- implement speed bumps for withdrawing crypto(изтеглените пари за единица време е ограничено)
+- implement speed bumps for withdrawing crypto(количеството изтеглени пари за единица време е ограничено)
 - limiting the rate of withdrawal amounts - ограничаване на количество на тeглене
 - restricting amount of crypto per user/contract in the early stage
   - до следващите няколко блока, хората не могат да теглят...
 - implement automatic deprecation(optional) - напр. require, който зависи от номера на блока
 - never use `tx.origin` for authorization
 - use special libraries or **oracles** for randomness
-- use audited templated for specific smart contracts(openZeppelin, etc. )
+- use audited templates for specific smart contracts(openZeppelin, etc. )
 
 ## General architecture guidelines
 
